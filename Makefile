@@ -3,4 +3,4 @@ all:
 	avr-objcopy -O binary a.out a.bin
 	
 install:
-	avrdude -p m328p -c usbasp -P  /dev/rfcomm1 -U flash:w:a.bin
+	avrdude -p m328p -c usbasp -P  /dev/rfcomm0 -U flash:w:a.bin
