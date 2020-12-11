@@ -4,3 +4,6 @@ all:
 	
 install:
 	avrdude -p m328p -c usbasp -P  /dev/rfcomm0 -U flash:w:a.bin
+
+clear: 
+	rm a.*
