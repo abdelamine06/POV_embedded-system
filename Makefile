@@ -1,5 +1,5 @@
 all:
-	avr-gcc -DF_CPU=16000000 -Os -mmcu=atmega328p main.c
+	avr-gcc -DF_CPU=13000000 -Os -mmcu=atmega328p main.c
 	avr-objcopy -O binary a.out a.bin
 	
 install:
