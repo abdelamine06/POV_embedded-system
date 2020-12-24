@@ -1,1 +1,3 @@
-a.*
+src/*.bin
+src/*.out
+src/*.o
