@@ -4,7 +4,7 @@
 #include "../headers/usart.h"
 
 #define F_CPU 13000000 // Clock Speed
-#define BAUD 9600
+#define BAUD 38400
 #define MYUBRR F_CPU/16/BAUD-1
   
 void Debug() 
@@ -22,7 +22,7 @@ int main(){
     SPI_MasterInit();
     //DDRB |= _BV(PD6);
      while(1) {
-        USART_Transmit('b');
+        USART_Transmit_String("Bonjour!");
         _delay_ms(1000);
 
         unsigned char led=0xFE;

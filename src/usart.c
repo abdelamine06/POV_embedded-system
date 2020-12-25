@@ -13,11 +13,17 @@ void USART_Init(unsigned int ubrr)
   UCSR0C = (1<<USBS0)|(3<<UCSZ00);
 }
 
-void USART_Transmit(unsigned char data)
+void USART_Transmit_Char(unsigned char data)
 {
     /* Wait for empty transmit buffer */
   while (!(UCSR0A & (1<<UDRE0)));
   /* Put data into buffer, sends the data */
   UDR0 = data;
+}
 
+void USART_Transmit_String(char* str) {
+	int i = 0;
+	while(str[i] != '\0') {//wysyla kolejne litery napisu
+		USART_Transmit_Char(str[i++]);
+	}
 }
