@@ -11,11 +11,14 @@ SRC=src/
 usart.o: usart.c
 	${CC} ${CFLAGS} -c -o usart.o usart.c
 
+hall.o: hall.c
+	${CC} ${CFLAGS} -c -o hall.o hall.c
+
 spi.o: spi.c
 	${CC} ${CFLAGS} -c -o spi.o spi.c
 
-main.out: main.c usart.o spi.o
-	${CC} ${CFLAGS} -o main.out main.c usart.o spi.o
+main.out: main.c usart.o spi.o hall.o
+	${CC} ${CFLAGS} -o main.out main.c usart.o spi.o hall.o
 
 main.bin: main.out
 		${OBJCOPY} -O binary main.out main.bin
