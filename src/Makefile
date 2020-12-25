@@ -17,8 +17,14 @@ hall.o: hall.c
 spi.o: spi.c
 	${CC} ${CFLAGS} -c -o spi.o spi.c
 
-main.out: main.c usart.o spi.o hall.o
-	${CC} ${CFLAGS} -o main.out main.c usart.o spi.o hall.o
+timer.o: timer.c
+	${CC} ${CFLAGS} -c -o timer.o timer.c
+
+interrupt.o: interrupt.c
+	${CC} ${CFLAGS} -c -o interrupt.o interrupt.c
+
+main.out: main.c usart.o spi.o hall.o timer.o interrupt.o
+	${CC} ${CFLAGS} -o main.out main.c usart.o spi.o hall.o timer.o interrupt.o
 
 main.bin: main.out
 		${OBJCOPY} -O binary main.out main.bin

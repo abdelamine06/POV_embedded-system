@@ -10,16 +10,13 @@ int detectHall()
     DDRD &= ~ _BV(PIND2);
 
     // If the second bin in PIND is 0 trun on PD6
-    while(1)
+    if (!(PIND & _BV(PIND2)))
     {
-        if ( ! (PIND & _BV(PIND2))  )
-        {
-            PORTD|= _BV(PD6);
-            //USART_Transmit("hall detected");
-        }
-        else
-        {
-            PORTD &= ~_BV(PD6);
-        }
+        PORTD|= _BV(PD6);
+        //USART_Transmit("hall detected");
+    }
+    else
+    {
+        PORTD &= ~_BV(PD6);
     }
 }

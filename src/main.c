@@ -3,6 +3,8 @@
 #include "../headers/spi.h"
 #include "../headers/usart.h"
 #include "../headers/hall.h"
+#include "../headers/timer.h"
+#include "../headers/interrupt.h"
 
 #define F_CPU 13000000 // Clock Speed
 #define BAUD 38400
@@ -22,27 +24,27 @@ int main(){
     USART_Init(MYUBRR);
     SPI_MasterInit();
 
-    detectHall();
+    Interrupt_Init();
 
-     while(1) {
-        USART_Transmit_String("Bonjour!");
-        _delay_ms(1000);
+    while(1) {
+      //USART_Transmit_String("Bonjour !\r\n");
+      Debug();
+      _delay_ms(1000);
 
-        unsigned char led=0xFE;
-        SPI_MasterTransmit(led);
+      USART_Transmit_String_Interrupt("Bounjour !!\r\n");
+      unsigned char led=0xFE;
+      SPI_MasterTransmit(led);
 
-        PORTC |= (1<<PC2);
-        PORTC &= ~(1<<PC2);
+      PORTC |= (1<<PC2);
+      PORTC &= ~(1<<PC2);
 
-        _delay_ms(1000);
+      _delay_ms(1000);
 
-        SPI_MasterTransmit(0x00);
+      SPI_MasterTransmit(0x00);
 
-        PORTC |= (1<<PC2);
-        PORTC &= ~(1<<PC2);
+      PORTC |= (1<<PC2);
+      PORTC &= ~(1<<PC2);
 
-        _delay_ms(1000);
-
-    }
-
+      _delay_ms(1000);
+  }
 }
