@@ -1,3 +1,7 @@
 src/*.bin
 src/*.out
 src/*.o
+test.c
+test.bin
+test.elf
+Makefile

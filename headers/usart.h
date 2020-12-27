@@ -1,5 +1,7 @@
 #ifndef USART_H
 #define USART_H
+#include <avr/interrupt.h>
+
 
 void USART_Init(unsigned int ubrr);
 void USART_Transmit_Char(unsigned char data);

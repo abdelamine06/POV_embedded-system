@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../headers/spi.h"
 #include "../headers/usart.h"
 #include "../headers/hall.h"
@@ -20,32 +22,14 @@ void Debug()
 
 int main(){
     DDRD |= _BV(PD6);
-
+    
     USART_Init(MYUBRR);
     SPI_MasterInit();
 
     Interrupt_Init();
+    TIMER_Init();
 
     while(1) {
-      //USART_Transmit_String("Bonjour !\r\n");
-      Debug();
-      _delay_ms(1000);
-
-      //USART_Transmit_String_Interrupt("Bounjour !!\r\n");
-      USART_Receive();
-      unsigned char led=0xFE;
-      SPI_MasterTransmit(led);
-
-      PORTC |= (1<<PC2);
-      PORTC &= ~(1<<PC2);
-
-      _delay_ms(1000);
-
-      SPI_MasterTransmit(0x00);
-
-      PORTC |= (1<<PC2);
-      PORTC &= ~(1<<PC2);
-
-      _delay_ms(1000);
+        Update_Time();
   }
 }

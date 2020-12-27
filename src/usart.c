@@ -34,6 +34,7 @@ void USART_Transmit_String(char* str)
 	int i = 0;
 	while(str[i] != '\0') 
   {
+    //wysyla kolejne litery napisu
 		USART_Transmit_Char(str[i++]);
 	}
 }
