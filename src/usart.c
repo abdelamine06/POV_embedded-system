@@ -3,7 +3,8 @@
 #include "../headers/usart.h"
 #include "../headers/interrupt.h"
 #include <avr/interrupt.h>
-
+#include <stdio.h>
+#include<stdlib.h>
 #define BUFFER_SIZE 128
 char transmit_buffer[BUFFER_SIZE];
 int transmit_tail=0;
@@ -57,6 +58,31 @@ void USART_Transmit_String_Interrupt(char *s)
         pos++;
     }
     UCSR0B |= _BV(UDRIE0); // Activer l'interruption
+}
+
+
+void USART_Receive()
+{
+  char str[1];
+  sprintf(str,"%c",UDR0);
+  switch (atoi(str))
+    {
+     case 1:
+          USART_Transmit_String_Interrupt("POV TERMINAL1!\n");
+          break;
+     case 2:
+          USART_Transmit_String_Interrupt("POV TERMINAL2 !\n");
+          break;
+     default:
+          break;
+    }
+}
+
+
+ISR(USART_RX_vect)
+{
+  USART_Receive();
+  UCSR0B &= ~ (1<<RXCIE0);
 }
 
 // USART interrupt

@@ -31,7 +31,8 @@ int main(){
       Debug();
       _delay_ms(1000);
 
-      USART_Transmit_String_Interrupt("Bounjour !!\r\n");
+      //USART_Transmit_String_Interrupt("Bounjour !!\r\n");
+      USART_Receive();
       unsigned char led=0xFE;
       SPI_MasterTransmit(led);
 
