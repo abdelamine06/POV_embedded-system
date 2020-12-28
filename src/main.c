@@ -20,45 +20,18 @@ void Debug()
 
 int main(){
 
-    //DDRD |= _BV(PD6);
-
     USART_Init(MYUBRR);
     SPI_MasterInit();
-
+    TIMER_Init();
+    Hall_Init();
     Interrupt_Init();
 
+    USART_Transmit_String_Interrupt("Bounjour !!\r\n");
 
-    cptHall=0;
-    while(1) {
-
-      USART_Transmit_String("Bonjour !\r\n");
-
-      USART_Transmit_String_Interrupt("Bounjour !!\r\n");
-
-      Detect_Hall_Interrupt();
-
-      // When we pass the hall, the leds will start to flash or stop flashing
-      if(getCptHall() %2 == 0 )
-      {
-       unsigned char led=0xFE;
-        SPI_MasterTransmit(led);
-
-        PORTC |= (1<<PC2);
-        PORTC &= ~(1<<PC2);
-
-        _delay_ms(1000);
-
-        SPI_MasterTransmit(0x00);
-
-        PORTC |= (1<<PC2);
-        PORTC &= ~(1<<PC2);
-
-        _delay_ms(1000);
-        PORTC &= ~(1<<PC2);
-      }
-
-
-  }
-
+    while(1) 
+    {
+      USART_Println(number_rotation);
+      USART_Println(time_last_rotation);
+    }
 
 }

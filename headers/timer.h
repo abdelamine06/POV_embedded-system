@@ -4,7 +4,6 @@
 
 void TIMER_Init();
 void Update_Time();
-int Millis();
-
+int Seconds();
 
 #endif // TIMERS_H

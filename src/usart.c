@@ -58,7 +58,7 @@ void USART_Transmit_String_Interrupt(char *s)
         Update_Buffer(&transmit_head);
         pos++;
     }
-    UCSR0B |= _BV(UDRIE0); // Activer l'interruption
+    UCSR0B |= _BV(UDRIE0); // Enable interrupt
 }
 
 
@@ -79,6 +79,15 @@ void USART_Receive()
     }
 }
 
+void USART_Println(int x)
+{
+  char number_str[128];
+  sprintf(number_str, "%d\t\n", x);
+  USART_Transmit_String_Interrupt(number_str);
+}
+
+
+// *************** Interrupt **********************************
 
 ISR(USART_RX_vect)
 {

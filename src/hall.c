@@ -6,38 +6,22 @@
 #include "../headers/interrupt.h"
 
 
-int Detect_Hall()
+void Hall_Init()
 {
-    //Setting DDRD in listenning mode for PIND2
-    DDRD &= ~ _BV(PIND2);
-    // If the second bin in PIND is 0 trun on PD6
-    if (!(PIND & _BV(PIND2)))
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-
+    number_rotation = 0;
+    time_last_rotation = 0;
+    DDRD &= ~(1 << DDD2);     
+    PORTD |= (1 << PORTD2);  
+    EICRA |= (1 << ISC00) | (1 << ISC01); 
+    EIMSK |= (1 << INT0);     // Enable interrupt
 }
 
-void Detect_Hall_Interrupt()
-{
-  //External interrupts
 
-  EICRA |= _BV(ISC01);
-  EIMSK |= _BV(INT0);  // Activate INT0 - in PD2
-
-}
-
+// ********************* Interrupt *************************
 
 ISR (INT0_vect)
 {
-  cptHall++;
-}
-
-int getCptHall()
-{
-  return cptHall;
+    time_last_rotation = TCNT1;
+    TCNT1 = 0;
+    number_rotation++;
 }

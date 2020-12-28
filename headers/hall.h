@@ -1,10 +1,9 @@
 #ifndef HALL_H
 #define HALL_H
 
-volatile int cptHall ;
+volatile int number_rotation;
+volatile int time_last_rotation; // Delate of last retaion 
 
-int getCptHall();
-int Detect_Hall();
-void Detect_Hall_Interrupt();
+void Hall_Init();
 
 #endif
