@@ -1,7 +1,10 @@
 #ifndef HALL_H
 #define HALL_H
 
+volatile int cptHall ;
 
-int detectHall();
+int getCptHall();
+int Detect_Hall();
+void Detect_Hall_Interrupt();
 
 #endif
