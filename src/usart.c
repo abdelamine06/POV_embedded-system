@@ -10,6 +10,8 @@ char transmit_buffer[BUFFER_SIZE];
 int transmit_tail=0;
 int transmit_head=0;
 
+
+
 void USART_Init(unsigned int ubrr)
 {
   /*Set baud rate */
@@ -29,6 +31,7 @@ void USART_Transmit_Char(unsigned char data)
   UDR0 = data;
 }
 
+
 void USART_Transmit_String(char* str) 
 {
 	int i = 0;
@@ -39,6 +42,7 @@ void USART_Transmit_String(char* str)
 	}
 }
 
+
 // Mettre a jour le Buffer circulaire 
 void Update_Buffer(int* i)
 {
@@ -48,6 +52,7 @@ void Update_Buffer(int* i)
     *i -= BUFFER_SIZE;
   }
 }
+
 
 void USART_Transmit_String_Interrupt(char *s) 
 {
@@ -60,6 +65,7 @@ void USART_Transmit_String_Interrupt(char *s)
     }
     UCSR0B |= _BV(UDRIE0); // Enable interrupt
 }
+
 
 
 void USART_Receive()
@@ -82,18 +88,21 @@ void USART_Receive()
 void USART_Println(int x)
 {
   char number_str[128];
-  sprintf(number_str, "%d\t\n", x);
+  sprintf(number_str, "%d\n", x);
   USART_Transmit_String_Interrupt(number_str);
 }
 
 
-// *************** Interrupt **********************************
 
+
+
+// *************** Interrupt **********************************
 ISR(USART_RX_vect)
 {
   USART_Receive();
   UCSR0B &= ~ (1<<RXCIE0);
 }
+
 
 // USART interrupt
 ISR(USART_UDRE_vect)

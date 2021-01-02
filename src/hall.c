@@ -4,15 +4,14 @@
 #include "../headers/hall.h"
 #include "../headers/usart.h"
 #include "../headers/interrupt.h"
+#include "../headers/spi.h"
 
-
+volatile int time_rotation = 0;
+volatile int number_rotation =0;
 void Hall_Init()
 {
-    number_rotation = 0;
-    time_last_rotation = 0;
     DDRD &= ~(1 << DDD2);     
     PORTD |= (1 << PORTD2);  
-    EICRA |= (1 << ISC00) | (1 << ISC01); 
     EIMSK |= (1 << INT0);     // Enable interrupt
 }
 
@@ -21,7 +20,7 @@ void Hall_Init()
 
 ISR (INT0_vect)
 {
-    time_last_rotation = TCNT1;
+    time_rotation = TCNT1;
     TCNT1 = 0;
     number_rotation++;
 }

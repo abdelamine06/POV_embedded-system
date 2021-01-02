@@ -25,13 +25,9 @@ int main(){
     TIMER_Init();
     Hall_Init();
     Interrupt_Init();
-
-    USART_Transmit_String_Interrupt("Bounjour !!\r\n");
-
     while(1) 
     {
-      USART_Println(number_rotation);
-      USART_Println(time_last_rotation);
+      Update_Time();
     }
 
 }
