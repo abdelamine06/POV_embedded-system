@@ -11,5 +11,4 @@ void USART_Transmit_String_Interrupt(char *s);
 void USART_Println(int x);
 ISR(USART_UDRE_vect);
 
-
 #endif // USART_H

@@ -12,6 +12,7 @@
 
 void Debug()
 {
+
   PORTD |= _BV(PD6);
   _delay_ms(500);
   PORTD &= ~_BV(PD6);
@@ -25,9 +26,17 @@ int main(){
     TIMER_Init();
     Hall_Init();
     Interrupt_Init();
-    while(1) 
+    while(1)
     {
       Update_Time();
+      // update the clock timer each time we reach the hall,for 7 rotations
+     if (hall_interrupt == 1)
+      {
+        update_time_register();
+        hall_interrupt=0;
+    }
+
+
     }
 
 }

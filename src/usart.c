@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include<stdlib.h>
 #define BUFFER_SIZE 128
+
+// Used by interruption
 char transmit_buffer[BUFFER_SIZE];
 int transmit_tail=0;
 int transmit_head=0;
@@ -25,25 +27,24 @@ void USART_Init(unsigned int ubrr)
 
 void USART_Transmit_Char(unsigned char data)
 {
-    /* Wait for empty transmit buffer */
+  /* Wait for empty transmit buffer */
   while (!(UCSR0A & (1<<UDRE0)));
   /* Put data into buffer, sends the data */
   UDR0 = data;
 }
 
 
-void USART_Transmit_String(char* str) 
+void USART_Transmit_String(char* str)
 {
 	int i = 0;
-	while(str[i] != '\0') 
+	while(str[i] != '\0')
   {
-    //wysyla kolejne litery napisu
 		USART_Transmit_Char(str[i++]);
 	}
 }
 
 
-// Mettre a jour le Buffer circulaire 
+// Mettre a jour le Buffer circulaire
 void Update_Buffer(int* i)
 {
   ++*i;
@@ -54,7 +55,7 @@ void Update_Buffer(int* i)
 }
 
 
-void USART_Transmit_String_Interrupt(char *s) 
+void USART_Transmit_String_Interrupt(char *s)
 {
   int pos = 0;
     while (s[pos]!='\0')
@@ -65,8 +66,6 @@ void USART_Transmit_String_Interrupt(char *s)
     }
     UCSR0B |= _BV(UDRIE0); // Enable interrupt
 }
-
-
 
 void USART_Receive()
 {
@@ -91,10 +90,6 @@ void USART_Println(int x)
   sprintf(number_str, "%d\n", x);
   USART_Transmit_String_Interrupt(number_str);
 }
-
-
-
-
 
 // *************** Interrupt **********************************
 ISR(USART_RX_vect)
