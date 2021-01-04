@@ -126,10 +126,15 @@ ISR (TIMER2_COMPA_vect){
       SPI_MasterTransmit((uint8_t)128);
       SPI_MasterTransmit((uint8_t)255);
     }
-    else{
-     SPI_MasterTransmit((uint8_t)128);
+    else if(clk_frame_value % 5 == 0){
+     SPI_MasterTransmit((uint8_t)160);
      SPI_MasterTransmit(0);
+    } else
+    {
+      SPI_MasterTransmit((uint8_t)192);
+      SPI_MasterTransmit(0);
     }
+    
     clk_frame();
     PORTC|= _BV(PC2); //LE à 1
     PORTC&= ~_BV(PC2); //LE à 0
