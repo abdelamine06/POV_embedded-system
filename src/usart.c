@@ -12,8 +12,6 @@ char transmit_buffer[BUFFER_SIZE];
 int transmit_tail=0;
 int transmit_head=0;
 
-
-
 void USART_Init(unsigned int ubrr)
 {
   /*Set baud rate */
@@ -91,7 +89,7 @@ void USART_Println(int x)
   USART_Transmit_String_Interrupt(number_str);
 }
 
-// *************** Interrupt **********************************
+// ***************************************** Interrupt **********************************
 ISR(USART_RX_vect)
 {
   USART_Receive();

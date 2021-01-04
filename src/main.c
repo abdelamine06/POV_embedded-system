@@ -29,14 +29,6 @@ int main(){
     while(1)
     {
       Update_Time();
-      // update the clock timer each time we reach the hall,for 7 rotations
-     if (hall_interrupt == 1)
-      {
-        update_time_register();
-        hall_interrupt=0;
-    }
-
-
     }
 
 }
