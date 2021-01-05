@@ -16,7 +16,9 @@ $ cd src
 $ make
 $ make install // Pour le téléverser dans le POV
 ```
+### Communication USART 
 
+Pour changer l'heure, on envoie la lettre ```h``` puis on entre l'heure au format ```hhmm```
 
 
 

@@ -18,6 +18,8 @@ void TIMER_Init()
   time_hour = 0;
   clk_frame_value= 59;
   ocr2a_value =255;
+  hours = 0;
+  minutes = 0;
 
   // The counting sequence is determined by the setting of the WGM01 and WGM00
   // bits located in the Timer/Counter control register (TCCR0A) and the WGM02
@@ -118,11 +120,11 @@ ISR(TIMER0_COMPA_vect)
 
 ISR (TIMER2_COMPA_vect){
 
-    if(getMinute() == clk_frame_value){
+    if(minutes + getMinute() == clk_frame_value){
       SPI_MasterTransmit((uint8_t)255);
       SPI_MasterTransmit((uint8_t)255);
     }
-     else if(getHour() == clk_frame_value){
+     else if(hours + getHour() == clk_frame_value){
       SPI_MasterTransmit((uint8_t)128);
       SPI_MasterTransmit((uint8_t)255);
     }

@@ -8,6 +8,8 @@ volatile int time_minute;
 volatile int time_hour;
 volatile int clk_frame_value;
 volatile int ocr2a_value;
+volatile int hours;
+volatile int minutes;
 
 
 void TIMER_Init();
